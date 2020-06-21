@@ -12,7 +12,6 @@ function App(props) {
 
   React.useEffect(() => {
     if (selectedCountry !== "global" && selectedCountry !== "") {
-      console.log("SELECTED", selectedCountry);
       dispatch(
         combinedActions.allCountryCasesActions.loadAllCases(selectedCountry)
       );
