@@ -2,9 +2,9 @@ import React from "react";
 
 const Content = ({ children }) => {
   return (
-    <section class="hero">
-      <div class="hero-body">
-        <div class="container">
+    <section className="hero">
+      <div className="hero-body">
+        <div className="container">
           <div className="tile is-ancestor">{children}</div>
         </div>
       </div>

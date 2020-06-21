@@ -15,8 +15,10 @@ const Dropdown = ({ selectCountry, countries, children }) => {
                       <option value={"global"} defaultValue>
                         Global
                       </option>
-                      {countries.map((country) => (
-                        <option value={country.iso2}>{country.name}</option>
+                      {countries.map((country, index) => (
+                        <option key={index} value={country.iso2}>
+                          {country.name}
+                        </option>
                       ))}
                     </select>
                   </div>
