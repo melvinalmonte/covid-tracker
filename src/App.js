@@ -1,26 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import combinedActions from "./redux/actions";
+import { useDispatch, connect } from "react-redux";
+import { Header } from "./components/header";
+import { Content } from "./components/content";
+import { Dropdown } from "./components/dropdown";
+import { Cases } from "./components/cases";
 
-function App() {
+function App(props) {
+  const dispatch = useDispatch();
+  const [selectedCountry, setSelectedCountry] = React.useState("");
+
+  React.useEffect(() => {
+    if (selectedCountry !== "global" && selectedCountry !== "") {
+      console.log("SELECTED", selectedCountry);
+      dispatch(
+        combinedActions.allCountryCasesActions.loadAllCases(selectedCountry)
+      );
+      dispatch(combinedActions.countryCasesActions.loadCases(selectedCountry));
+      dispatch(combinedActions.countryCodesActions.loadCountryCodes());
+    } else {
+      dispatch(combinedActions.countryCasesActions.loadCases(selectedCountry));
+      dispatch(combinedActions.countryCodesActions.loadCountryCodes());
+    }
+  }, [selectedCountry]);
+
+  const countryDropdownHandler = (e) => setSelectedCountry(e.target.value);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className="container">
+      <Header />
+      <Content>
+        <Dropdown
+          selectCountry={countryDropdownHandler}
+          countries={props.codes}
         >
-          Learn React
-        </a>
-      </header>
+          <Cases data={props.cases} />
+        </Dropdown>
+      </Content>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  codes: state.getCountryCodes.countries,
+  cases: state.getCases,
+});
+
+export default connect(mapStateToProps)(App);
