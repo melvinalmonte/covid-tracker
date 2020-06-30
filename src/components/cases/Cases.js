@@ -15,19 +15,19 @@ const Cases = ({ loading, data }) => {
     <div className="tile is-parent">
       <div className="tile is-child box has-text-centered">
         <p className="subtitle has-text-info">Confirmed</p>
-        <p className="subtitle has-text-black">
+        <p className="subtitle has-text-black animate__animated animate__fadeIn">
           {data.confirmed.toLocaleString()}
         </p>
       </div>
       <div className="tile is-child box has-text-centered">
         <p className="subtitle has-text-success">Recovered</p>
-        <p className="subtitle has-text-black">
+        <p className="subtitle has-text-black animate__animated animate__fadeIn">
           {data.recovered.toLocaleString()}
         </p>
       </div>
       <div className="tile is-child box has-text-centered">
         <p className="subtitle has-text-danger">Deaths</p>
-        <p className="subtitle has-text-black">
+        <p className="subtitle has-text-black animate__animated animate__fadeIn">
           {data.deaths.toLocaleString()}
         </p>
       </div>

@@ -11,7 +11,7 @@ const Dropdown = ({ selectCountry, countries, children }) => {
               <div className="field">
                 <div className="control">
                   <div className="select is-rounded" onChange={selectCountry}>
-                    <select>
+                    <select className="animate__animated animate__fadeIn">
                       <option value={"global"} defaultValue>
                         Global
                       </option>
