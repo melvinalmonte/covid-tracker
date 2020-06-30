@@ -5,7 +5,7 @@ const Content = ({ children }) => {
     <section className="hero">
       <div className="hero-body">
         <div className="container">
-          <div className="tile is-ancestor">{children}</div>
+          <div className="tile is-ancestor simple-cov-tile">{children}</div>
         </div>
       </div>
     </section>
