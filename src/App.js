@@ -7,6 +7,7 @@ import { Dropdown } from "./components/dropdown";
 import { Cases } from "./components/cases";
 import Fuse from "fuse.js";
 import Collapsible from "react-collapsible";
+import Utils from "./common/utils";
 
 function App(props) {
   const dispatch = useDispatch();
@@ -43,11 +44,6 @@ function App(props) {
     if (e.keyCode === 13 && localCases.length > 0) {
       onSubmit();
     }
-  };
-
-  const lastUpdated = lastUpdate => {
-    const time = new Date(lastUpdate);
-    return time.toUTCString();
   };
 
   return (
@@ -88,7 +84,7 @@ function App(props) {
                 className="column animate__animated animate__fadeInUp"
               >
                 <Collapsible
-                    accordionPosition="right-0"
+                  accordionPosition="right-0"
                   trigger={
                     <button className="button is-rounded">
                       {data.item.combinedKey}
@@ -106,7 +102,7 @@ function App(props) {
                       Deaths: {data.item.deaths.toLocaleString()}
                     </p>
                     <p className="has-text-black">
-                      Last Updated: {lastUpdated(data.item.lastUpdate)}
+                      Last Updated: {Utils.lastUpdated(data.item.lastUpdate)}
                     </p>
                   </div>
                 </Collapsible>
