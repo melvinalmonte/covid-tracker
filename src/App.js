@@ -1,29 +1,27 @@
 import React from "react";
-import combinedActions from "./redux/actions";
-import { useDispatch, connect } from "react-redux";
+import { connect } from "react-redux";
 import { Header } from "./components/header";
 import { Content } from "./components/content";
 import { Dropdown } from "./components/dropdown";
 import { Cases } from "./components/cases";
 import Fuse from "fuse.js";
 import LocalCases from "./components/localCases/LocalCases";
+import { loadCases } from "./redux/actions/countryCasesActions";
+import { loadCountryCodes } from "./redux/actions/countryCodesActions";
+import { loadAllCases } from "./redux/actions/allCountryCasesActions";
 
 function App(props) {
-  const dispatch = useDispatch();
   const [selectedCountry, setSelectedCountry] = React.useState("");
   const [localCases, setLocalCases] = React.useState("");
   const [filteredResult, setFilteredResult] = React.useState([]);
 
   React.useEffect(() => {
+    props.loadCountryCodes();
     if (selectedCountry !== "global" && selectedCountry !== "") {
-      dispatch(
-        combinedActions.allCountryCasesActions.loadAllCases(selectedCountry)
-      );
-      dispatch(combinedActions.countryCasesActions.loadCases(selectedCountry));
-      dispatch(combinedActions.countryCodesActions.loadCountryCodes());
+      props.loadAllCases(selectedCountry);
+      props.loadCases(selectedCountry);
     } else {
-      dispatch(combinedActions.countryCasesActions.loadCases(selectedCountry));
-      dispatch(combinedActions.countryCodesActions.loadCountryCodes());
+      props.loadCases(selectedCountry);
     }
   }, [selectedCountry]);
 
@@ -74,4 +72,10 @@ const mapStateToProps = state => ({
   localCases: state.getAllCases.data
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = {
+  loadCases,
+  loadCountryCodes,
+  loadAllCases
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

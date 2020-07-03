@@ -1,29 +1,27 @@
 import {
   GET_COUNTRY_CASES_LOADING,
   GET_COUNTRY_CASES_SUCCESS,
-  GET_COUNTRY_CASES_ERROR,
+  GET_COUNTRY_CASES_ERROR
 } from "../constants/actionTypes";
 import Api from "../client/api";
 
-const loadCases = (country) => (dispatch) => {
+export const loadCases = country => dispatch => {
   dispatch({ type: GET_COUNTRY_CASES_LOADING });
   Api.fetchCases(country)
-    .then((response) => {
+    .then(response => {
       const res = response.data;
       dispatch({
         type: GET_COUNTRY_CASES_SUCCESS,
         confirmed: res.confirmed.value,
         recovered: res.recovered.value,
         deaths: res.deaths.value,
-        lastUpdated: res.lastUpdate,
+        lastUpdated: res.lastUpdate
       });
     })
-    .catch((error) => {
+    .catch(error => {
       dispatch({
         type: GET_COUNTRY_CASES_ERROR,
-        error: error.response ? error.response.data : error.message,
+        error: error.response ? error.response.data : error.message
       });
     });
 };
-
-export default { loadCases };
