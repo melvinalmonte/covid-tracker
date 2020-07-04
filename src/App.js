@@ -25,33 +25,30 @@ const useStyles = makeStyles({
 
 function App(props) {
   const classes = useStyles();
-  const [selectedCountry, setSelectedCountry] = React.useState("");
-  const [localCases, setLocalCases] = React.useState("");
-  const [filteredResult, setFilteredResult] = React.useState([]);
+  const [searchCountry, setSearchCountry] = React.useState("");
+  const [countryName, setCountryName] = React.useState("Cases Globally");
   React.useEffect(() => {
     props.loadCountryCodes();
-    if (selectedCountry !== "global" && selectedCountry !== "") {
-      props.loadAllCases(selectedCountry);
-      props.loadCases(selectedCountry);
-    } else {
-      props.loadCases(selectedCountry);
-    }
-  }, [selectedCountry]);
+    props.loadCases(countryName)
+  }, []);
 
-  const countryDropdownHandler = e => setSelectedCountry(e.target.value);
-  const localCasesHandler = e => setLocalCases(e.target.value);
+  const searchHandler = event => setSearchCountry(event.target.value);
 
-  const fuse = new Fuse(props.localCases, {
-    keys: ["combinedKey"]
+  const fuse = new Fuse(props.codes, {
+    keys: ["name"]
   });
 
   const onSubmit = () => {
-    if (localCases.length > 0) {
-      setFilteredResult([...fuse.search(localCases)]);
+    if (searchCountry !== "") {
+      const result = fuse.search(searchCountry);
+      if (result) {
+        props.loadCases(result[0].item.iso2);
+        setCountryName(result[0].item.name)
+      }
     }
   };
   const handleKeyPress = e => {
-    if (e.keyCode === 13 && localCases.length > 0) {
+    if (e.keyCode === 13 && searchCountry !== "") {
       onSubmit();
     }
   };
@@ -61,12 +58,15 @@ function App(props) {
       <NavBar NavTitle={"Simple Covid-19 Tracker"} />
       <Container className={classes.appBase}>
         <Paper className={classes.paperBase}>
-          <Banner customVariant={"h4"}>Global Cases</Banner>
+          <Banner customVariant={"h4"}>{countryName}</Banner>
           <Cards data={props.countryCases} />
           <Banner customVariant={"h6"}>
             Last Updated: {Utils.lastUpdated(props.countryCases.lastUpdated)}
           </Banner>
-          <SearchBar />
+          <SearchBar
+            searchHandler={searchHandler}
+            keyPressHandler={handleKeyPress}
+          />
         </Paper>
       </Container>
     </div>

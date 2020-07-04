@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   }
 });
 
-const SearchBar = () => {
+const SearchBar = ({ searchHandler, keyPressHandler }) => {
   const classes = useStyles();
   return (
     <Grid className={classes.searchBase} container justify={"center"}>
@@ -23,6 +23,8 @@ const SearchBar = () => {
         <FormControl variant="outlined">
           <InputLabel htmlFor="search-by-country">Search by Country</InputLabel>
           <OutlinedInput
+            onChange={searchHandler}
+            onKeyDown={keyPressHandler}
             id="search-by-country"
             type={"text"}
             endAdornment={
