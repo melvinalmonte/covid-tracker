@@ -12,6 +12,7 @@ import { Banner } from "./components/Banner";
 import Utils from "./common/utils";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
+import { CasesTable } from "./components/CasesTable";
 
 const useStyles = makeStyles({
   appBase: {
@@ -43,6 +44,7 @@ function App(props) {
       const result = fuse.search(searchCountry);
       if (result) {
         props.loadCases(result[0].item.iso2);
+        props.loadAllCases(result[0].item.iso2);
         setCountryName(result[0].item.name);
       }
     }
@@ -69,6 +71,9 @@ function App(props) {
             submitSearch={onSubmit}
           />
         </Paper>
+        {props.localCases.length > 1 ? (
+          <CasesTable data={props.localCases} />
+        ) : null}
       </Container>
     </div>
   );
