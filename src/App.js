@@ -54,7 +54,7 @@ function App(props) {
   };
 
   return (
-    <div>
+    <div className="animate__animated animate__fadeIn">
       <NavBar NavTitle={"Simple Covid-19 Tracker"} />
       <Container className={classes.appBase}>
         <Paper className={classes.paperBase}>
