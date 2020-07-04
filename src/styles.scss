@@ -1,25 +1,16 @@
 $family-primary: "Open Sans";
 $box-padding: 4rem;
 
-div.cov-searchbar-container {
-  padding: 0.75rem;
-}
-div.cov-collapsible-content {
-  border: 1px solid #dbdbdb;
-  border-radius: 15px;
-  margin-top: 0.5rem;
-}
-
-section.simple-cov-tile {
-  min-width: 30rem;
-}
-
-code.cov-last-update {
-  background: #ffffff;
+body {
+  background: url("/assets/background.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0;
+  min-height: 100vh;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap");
 @import "~animate.css/animate.css";
 @import "~@fortawesome/fontawesome-free/css/fontawesome.css";
 @import "~@fortawesome/fontawesome-free/css/all.css";
-@import "~bulma/bulma";

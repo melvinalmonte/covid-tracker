@@ -1,20 +1,33 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Header } from "./components/header";
-import { Content } from "./components/content";
-import { Dropdown } from "./components/dropdown";
-import { Cases } from "./components/cases";
 import Fuse from "fuse.js";
-import LocalCases from "./components/localCases/LocalCases";
 import { loadCases } from "./redux/actions/countryCasesActions";
 import { loadCountryCodes } from "./redux/actions/countryCodesActions";
 import { loadAllCases } from "./redux/actions/allCountryCasesActions";
+import Container from "@material-ui/core/Container";
+import { SearchBar } from "./components/Search";
+import NavBar from "./components/NavBar/NavBar";
+import { Cards } from "./components/Cards";
+import { Banner } from "./components/Banner";
+import Utils from "./common/utils";
+import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+
+const useStyles = makeStyles({
+  appBase: {
+    paddingTop: "2rem",
+    paddingBottom: "2rem"
+  },
+  paperBase: {
+    background: "rgba(255, 255, 255, 0.8)"
+  }
+});
 
 function App(props) {
+  const classes = useStyles();
   const [selectedCountry, setSelectedCountry] = React.useState("");
   const [localCases, setLocalCases] = React.useState("");
   const [filteredResult, setFilteredResult] = React.useState([]);
-
   React.useEffect(() => {
     props.loadCountryCodes();
     if (selectedCountry !== "global" && selectedCountry !== "") {
@@ -44,24 +57,18 @@ function App(props) {
   };
 
   return (
-    <div className="container animate__animated animate__fadeIn">
-      <Header />
-      <Content>
-        <Dropdown
-          selectCountry={countryDropdownHandler}
-          countries={props.codes}
-        >
-          <Cases data={props.countryCases} />
-        </Dropdown>
-      </Content>
-      {selectedCountry === "US" ? (
-        <LocalCases
-          localData={filteredResult}
-          localCasesHandler={localCasesHandler}
-          handleKeyPress={handleKeyPress}
-          onSubmit={() => onSubmit()}
-        />
-      ) : null}
+    <div>
+      <NavBar NavTitle={"Simple Covid-19 Tracker"} />
+      <Container className={classes.appBase}>
+        <Paper className={classes.paperBase}>
+          <Banner customVariant={"h4"}>Global Cases</Banner>
+          <Cards data={props.countryCases} />
+          <Banner customVariant={"h6"}>
+            Last Updated: {Utils.lastUpdated(props.countryCases.lastUpdated)}
+          </Banner>
+          <SearchBar />
+        </Paper>
+      </Container>
     </div>
   );
 }
