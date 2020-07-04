@@ -75,7 +75,7 @@ const Cards = ({ data }) => {
                 Deaths
               </Typography>
               <Typography variant="h5" component="p" align={"center"}>
-                {data.recovered.toLocaleString()}
+                {data.deaths.toLocaleString()}
               </Typography>
             </CardContent>
           </Card>
