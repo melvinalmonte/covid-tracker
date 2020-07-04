@@ -26,11 +26,20 @@ const CasesTable = ({ data }) => {
   return (
     <div className={`animate__animated animate__fadeIn ${classes.tableBase}`}>
       <MaterialTable
-        style={{ background: "rgba(255, 255, 255, 0.8)", fontFamily:  "Roboto, Helvetica, Arial sans-serif" }}
+        style={{
+          background: "rgba(255, 255, 255, 0.8)",
+          fontFamily: "Roboto, Helvetica, Arial sans-serif"
+        }}
         data={data}
         columns={columns}
         icons={icons}
         title={"Local Cases:"}
+        options={{
+          headerStyle: {
+            backgroundColor: "rgba(255, 255, 255, 0.3)",
+            fontSize: "17px"
+          }
+        }}
       />
     </div>
   );
