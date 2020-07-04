@@ -29,7 +29,7 @@ function App(props) {
   const [countryName, setCountryName] = React.useState("Cases Globally");
   React.useEffect(() => {
     props.loadCountryCodes();
-    props.loadCases(countryName)
+    props.loadCases(countryName);
   }, []);
 
   const searchHandler = event => setSearchCountry(event.target.value);
@@ -43,7 +43,7 @@ function App(props) {
       const result = fuse.search(searchCountry);
       if (result) {
         props.loadCases(result[0].item.iso2);
-        setCountryName(result[0].item.name)
+        setCountryName(result[0].item.name);
       }
     }
   };
@@ -66,6 +66,7 @@ function App(props) {
           <SearchBar
             searchHandler={searchHandler}
             keyPressHandler={handleKeyPress}
+            submitSearch={onSubmit}
           />
         </Paper>
       </Container>

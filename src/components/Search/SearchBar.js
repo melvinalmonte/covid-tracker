@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   }
 });
 
-const SearchBar = ({ searchHandler, keyPressHandler }) => {
+const SearchBar = ({ searchHandler, keyPressHandler, submitSearch }) => {
   const classes = useStyles();
   return (
     <Grid className={classes.searchBase} container justify={"center"}>
@@ -29,7 +29,7 @@ const SearchBar = ({ searchHandler, keyPressHandler }) => {
             type={"text"}
             endAdornment={
               <InputAdornment position="end">
-                <IconButton aria-label="search-by-country" edge="end">
+                <IconButton onClick={submitSearch} aria-label="search-by-country" edge="end">
                   <Search />
                 </IconButton>
               </InputAdornment>
