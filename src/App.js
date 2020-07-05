@@ -16,7 +16,7 @@ import { CasesTable } from "./components/CasesTable";
 
 const useStyles = makeStyles({
   appBase: {
-    paddingTop: "2rem",
+    paddingTop: "10rem",
     paddingBottom: "2rem"
   },
   paperBase: {
@@ -58,7 +58,7 @@ function App(props) {
   return (
     <div className="animate__animated animate__fadeIn">
       <NavBar NavTitle={"Simple Covid-19 Tracker"} />
-      <Container className={classes.appBase}>
+      <Container className={`cov-app-base ${classes.appBase}`}>
         <Paper className={classes.paperBase}>
           <Banner customVariant={"h4"}>{countryName}</Banner>
           <Cards data={props.countryCases} />
